@@ -1,0 +1,23 @@
+{
+  "rule_id": "canadian_cspine_01",
+  "name": "Canadian C-Spine Rule",
+  "version": "1.0",
+  "questions": [
+    {
+      "id": "q1",
+      "text": "มีปัจจัยเสี่ยงสูงที่ต้องส่ง Radiography ทันทีหรือไม่? (เช่น อายุ >= 65 ปี, กลไกอันตราย, ชาปลายมือปลายเท้า)",
+      "type": "boolean"
+    },
+    {
+      "id": "q2",
+      "text": "มีปัจจัยเสี่ยงต่ำที่อนุญาตให้ประเมิน Range of Motion (ROM) ได้หรือไม่? (เช่น ชนท้ายความเร็วต่ำ, นั่งเดินได้, ไม่มีกดเจ็บกลางคอ)",
+      "type": "boolean"
+    }
+  ],
+  "logic": {
+    "high_risk": "q1 == true",
+    "low_risk": "q1 == false AND q2 == true",
+    "recommendation_high": "High Risk: แนะนำให้ส่ง C-Spine Radiography",
+    "recommendation_low": "Low Risk: ให้ประเมินการหมุนคอ (ROM) หากหมุนได้ 45 องศาซ้ายขวา ไม่จำเป็นต้องส่งภาพถ่ายรังสี"
+  }
+}
