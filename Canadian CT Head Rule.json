@@ -1,0 +1,98 @@
+{
+  "metadata": {
+    "rule_name": "Canadian CT Head Rule (CCHR)",
+    "description": "เกณฑ์สำหรับประเมินความจำเป็นในการส่งเอกซเรย์คอมพิวเตอร์สมอง (CT Head) ในผู้ป่วยบาดเจ็บที่ศีรษะระดับเล็กน้อย (Minor head trauma)",
+    "version": "1.0",
+    "last_updated": "2026-09-19",
+    "author": "Ian G. Stiell, et al."
+  },
+  "indications": [
+    "ผู้ป่วยบาดเจ็บที่ศีรษะแบบไม่มีแผลทะลุ (Blunt head trauma)",
+    "มีประวัติสลบ (Witnessed loss of consciousness), จำเหตุการณ์ไม่ได้ (Amnesia), หรือมีอาการสับสน (Disorientation)",
+    "คะแนน Glasgow Coma Scale (GCS) ประเมินได้ 13-15 คะแนน"
+  ],
+  "contraindications_exclusions": [
+    "อายุน้อยกว่า 16 ปี",
+    "ไม่มีประวัติอุบัติเหตุที่ศีรษะอย่างชัดเจน",
+    "ระดับความรู้สึกตัว GCS ต่ำกว่า 13 (กรณีนี้ต้องส่ง CT Head ทันที)",
+    "มีแผลเปิดทะลุกะโหลกศีรษะอย่างชัดเจน (Obvious open skull fracture)",
+    "มีความผิดปกติของระบบประสาทเฉพาะที่ (Focal neurological deficit)",
+    "มีอาการชักหลังเกิดอุบัติเหตุ (Post-traumatic seizure)",
+    "มีภาวะเลือดออกง่าย (Bleeding disorders) หรือได้รับยาต้านการแข็งตัวของเลือด (Oral anticoagulants)"
+  ],
+  "criteria": {
+    "high_risk_factors": [
+      {
+        "id": "hr_1",
+        "question": "คะแนน GCS < 15 ที่เวลา 2 ชั่วโมงหลังเกิดอุบัติเหตุ ใช่หรือไม่?",
+        "type": "boolean"
+      },
+      {
+        "id": "hr_2",
+        "question": "สงสัยว่ามีกะโหลกศีรษะแตกแบบเปิดหรือยุบ (Suspected open or depressed skull fracture) ใช่หรือไม่?",
+        "type": "boolean"
+      },
+      {
+        "id": "hr_3",
+        "question": "มีอาการแสดงของฐานกะโหลกศีรษะแตก (Basal skull fracture signs) เช่น เลือดคั่งในหูชั้นกลาง (Hemotympanum), รอยช้ำรอบดวงตา (Raccoon eyes), รอยช้ำหลังใบหู (Battle's sign), หรือมีน้ำไขสันหลังรั่วทางจมูก/หู (CSF oto/rhinorrhea) ใช่หรือไม่?",
+        "type": "boolean"
+      },
+      {
+        "id": "hr_4",
+        "question": "มีอาการอาเจียนตั้งแต่ 2 ครั้งขึ้นไป (Vomiting >= 2 episodes) ใช่หรือไม่?",
+        "type": "boolean"
+      },
+      {
+        "id": "hr_5",
+        "question": "อายุ >= 65 ปี ใช่หรือไม่?",
+        "type": "boolean"
+      }
+    ],
+    "medium_risk_factors": [
+      {
+        "id": "mr_1",
+        "question": "จำเหตุการณ์ก่อนเกิดอุบัติเหตุไม่ได้ (Retrograde amnesia) เป็นเวลาตั้งแต่ 30 นาทีขึ้นไป ใช่หรือไม่?",
+        "type": "boolean"
+      },
+      {
+        "id": "mr_2",
+        "question": "กลไกการบาดเจ็บอันตราย (Dangerous mechanism) เช่น คนเดินเท้าถูกรถชน, กระเด็นออกนอกรถ, หรือตกจากที่สูง > 3 ฟุต หรือ > 5 ขั้นบันได ใช่หรือไม่?",
+        "type": "boolean"
+      }
+    ]
+  },
+  "logic_evaluation": {
+    "evaluation_type": "boolean_any",
+    "rules": [
+      {
+        "condition": "ANY(high_risk_factors) == true",
+        "result": "high_risk",
+        "clinical_implication": "มีความเสี่ยงสูงมากที่จะต้องได้รับการผ่าตัดหรือการรักษาทางระบบประสาท (High risk for neurological intervention)"
+      },
+      {
+        "condition": "ALL(high_risk_factors) == false AND ANY(medium_risk_factors) == true",
+        "result": "medium_risk",
+        "clinical_implication": "มีความเสี่ยงสูงที่จะพบรอยโรคในสมองจากการทำ CT (High risk for clinically important brain injury on CT)"
+      },
+      {
+        "condition": "ALL(high_risk_factors) == false AND ALL(medium_risk_factors) == false",
+        "result": "low_risk",
+        "clinical_implication": "ความเสี่ยงต่ำมากที่จะมีความผิดปกติทางสมองที่สำคัญ"
+      }
+    ]
+  },
+  "recommendations": {
+    "high_risk": {
+      "clinical_decision": "CT Head Indicated",
+      "action": "แนะนำให้ส่งเอกซเรย์คอมพิวเตอร์สมอง (CT Head) ทันที เนื่องจากเข้าเกณฑ์ High Risk"
+    },
+    "medium_risk": {
+      "clinical_decision": "CT Head Indicated",
+      "action": "แนะนำให้ส่งเอกซเรย์คอมพิวเตอร์สมอง (CT Head) เนื่องจากเข้าเกณฑ์ Medium Risk"
+    },
+    "low_risk": {
+      "clinical_decision": "No CT Head Indicated",
+      "action": "ไม่จำเป็นต้องส่ง CT Head สามารถสังเกตอาการทางคลินิก (Observation) หากประเมินแล้วปลอดภัยสามารถพิจารณาให้กลับบ้านพร้อมเอกสารแนะนำวิธีสังเกตอาการ (Head injury advice) ได้"
+    }
+  }
+}
