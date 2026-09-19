@@ -1,23 +1,122 @@
 {
-  "rule_id": "canadian_cspine_01",
-  "name": "Canadian C-Spine Rule",
-  "version": "1.0",
-  "questions": [
-    {
-      "id": "q1",
-      "text": "มีปัจจัยเสี่ยงสูงที่ต้องส่ง Radiography ทันทีหรือไม่? (เช่น อายุ >= 65 ปี, กลไกอันตราย, ชาปลายมือปลายเท้า)",
-      "type": "boolean"
-    },
-    {
-      "id": "q2",
-      "text": "มีปัจจัยเสี่ยงต่ำที่อนุญาตให้ประเมิน Range of Motion (ROM) ได้หรือไม่? (เช่น ชนท้ายความเร็วต่ำ, นั่งเดินได้, ไม่มีกดเจ็บกลางคอ)",
-      "type": "boolean"
-    }
+  "metadata": {
+    "rule_name": "Canadian C-Spine Rule (CCR)",
+    "description": "เกณฑ์สำหรับประเมินความจำเป็นในการส่งภาพถ่ายรังสี (Radiography) กระดูกสันหลังส่วนคอในผู้ป่วยอุบัติเหตุ",
+    "version": "1.0",
+    "last_updated": "2026-09-19",
+    "author": "Ian G. Stiell, et al."
+  },
+  "indications": [
+    "ผู้ป่วยบาดเจ็บ (Trauma patient)",
+    "รู้สึกตัวดี (GCS = 15)",
+    "สัญญาณชีพคงที่ (Stable vital signs)",
+    "สงสัยว่ามีการบาดเจ็บที่กระดูกสันหลังส่วนคอ (Suspected cervical spine injury)"
   ],
-  "logic": {
-    "high_risk": "q1 == true",
-    "low_risk": "q1 == false AND q2 == true",
-    "recommendation_high": "High Risk: แนะนำให้ส่ง C-Spine Radiography",
-    "recommendation_low": "Low Risk: ให้ประเมินการหมุนคอ (ROM) หากหมุนได้ 45 องศาซ้ายขวา ไม่จำเป็นต้องส่งภาพถ่ายรังสี"
+  "contraindications_exclusions": [
+    "อายุน้อยกว่า 16 ปี",
+    "ระดับความรู้สึกตัวลดลง (GCS < 15)",
+    "สัญญาณชีพไม่คงที่ (Unstable vital signs)",
+    "ไม่ใช่ผู้ป่วยจากอุบัติเหตุ (Non-trauma cases)",
+    "มีอาการอัมพาตเฉียบพลัน (Acute paralysis)",
+    "มีโรคเกี่ยวกับกระดูกสันหลังเดิม (เช่น Ankylosing spondylitis, Rheumatoid arthritis, Spinal stenosis)",
+    "เคยผ่าตัดกระดูกสันหลังส่วนคอมาก่อน",
+    "กลับมาตรวจซ้ำด้วยการบาดเจ็บเดิม"
+  ],
+  "criteria": {
+    "step_1_high_risk_factors": [
+      {
+        "id": "high_risk_1",
+        "question": "อายุ >= 65 ปี ใช่หรือไม่?",
+        "type": "boolean"
+      },
+      {
+        "id": "high_risk_2",
+        "question": "กลไกการบาดเจ็บอันตราย (Dangerous mechanism) เช่น ตกจากที่สูง >= 3 ฟุต/5 ขั้นบันได, มีแรงกระแทกตามแนวดิ่งที่ศีรษะ (Axial load), รถชนความเร็วสูง (>100 กม./ชม.), รถพลิกคว่ำ, กระเด็นออกนอกรถ, หรืออุบัติเหตุจากจักรยาน/จักรยานยนต์ ใช่หรือไม่?",
+        "type": "boolean"
+      },
+      {
+        "id": "high_risk_3",
+        "question": "มีอาการชา (Paresthesias) ที่ปลายมือหรือปลายเท้า ใช่หรือไม่?",
+        "type": "boolean"
+      }
+    ],
+    "step_2_low_risk_factors": [
+      {
+        "id": "low_risk_1",
+        "question": "อุบัติเหตุรถยนต์ชนท้ายแบบไม่รุนแรง (Simple rear-end MVA) ใช่หรือไม่?",
+        "type": "boolean"
+      },
+      {
+        "id": "low_risk_2",
+        "question": "ผู้ป่วยสามารถนั่งได้ในห้องฉุกเฉิน ใช่หรือไม่?",
+        "type": "boolean"
+      },
+      {
+        "id": "low_risk_3",
+        "question": "ผู้ป่วยเดินได้เอง ณ เวลาใดเวลาหนึ่งหลังเกิดเหตุ ใช่หรือไม่?",
+        "type": "boolean"
+      },
+      {
+        "id": "low_risk_4",
+        "question": "อาการปวดคอเกิดขึ้นช้า (Delayed onset of neck pain) ใช่หรือไม่?",
+        "type": "boolean"
+      },
+      {
+        "id": "low_risk_5",
+        "question": "ไม่มีจุดกดเจ็บที่กึ่งกลางกระดูกสันหลังส่วนคอ (Absence of midline c-spine tenderness) ใช่หรือไม่?",
+        "type": "boolean"
+      }
+    ],
+    "step_3_range_of_motion": [
+      {
+        "id": "rom_1",
+        "question": "ผู้ป่วยสามารถหันคอ (Actively rotate neck) ไปทางซ้ายและขวาได้ถึง 45 องศา ใช่หรือไม่?",
+        "type": "boolean"
+      }
+    ]
+  },
+  "logic_evaluation": {
+    "evaluation_type": "stepwise_algorithm",
+    "rules": [
+      {
+        "step": 1,
+        "condition": "ANY(step_1_high_risk_factors) == true",
+        "action": "jump_to_recommendation",
+        "result": "high_risk"
+      },
+      {
+        "step": 2,
+        "condition": "ALL(step_1_high_risk_factors) == false AND ALL(step_2_low_risk_factors) == false",
+        "action": "jump_to_recommendation",
+        "result": "high_risk"
+      },
+      {
+        "step": 3,
+        "condition": "ALL(step_1_high_risk_factors) == false AND ANY(step_2_low_risk_factors) == true",
+        "action": "proceed_to_step_3"
+      },
+      {
+        "step": 4,
+        "condition": "rom_1 == false",
+        "action": "jump_to_recommendation",
+        "result": "high_risk"
+      },
+      {
+        "step": 5,
+        "condition": "rom_1 == true",
+        "action": "jump_to_recommendation",
+        "result": "low_risk"
+      }
+    ]
+  },
+  "recommendations": {
+    "high_risk": {
+      "clinical_decision": "Radiography Indicated",
+      "action": "แนะนำให้ส่งเอกซเรย์ หรือ CT scan กระดูกสันหลังส่วนคอ และยังคงใส่ปลอกคอดาม (C-collar) ไว้"
+    },
+    "low_risk": {
+      "clinical_decision": "No Radiography Indicated",
+      "action": "ไม่จำเป็นต้องส่งถ่ายภาพรังสี สามารถพิจารณาถอดปลอกคอดาม (C-collar) ได้อย่างปลอดภัย (Clinically cleared)"
+    }
   }
 }
