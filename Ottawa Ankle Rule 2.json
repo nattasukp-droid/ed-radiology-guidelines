@@ -1,0 +1,58 @@
+{
+  "metadata": {
+    "rule_id": "ottawa_ankle_v1",
+    "name": "Ottawa Ankle Rule",
+    "version": "1.0.0",
+    "last_updated": "2026-09-19",
+    "reviewer": "Pop",
+    "description": "Clinical decision rule for deciding if a patient with ankle/midfoot injury needs an X-ray."
+  },
+  "indications": "Acute blunt injury to the ankle or midfoot.",
+  "exclusions": [
+    "Age < 18 years",
+    "Pregnant",
+    "Isolated injury of the skin (superficial lacerations, abrasions, burns)",
+    "Presented > 10 days after injury"
+  ],
+  "criteria": [
+    {
+      "id": "c1",
+      "category": "Ankle",
+      "text": "Bone tenderness at the posterior edge or tip of the lateral malleolus (distal 6 cm)",
+      "type": "boolean"
+    },
+    {
+      "id": "c2",
+      "category": "Ankle",
+      "text": "Bone tenderness at the posterior edge or tip of the medial malleolus (distal 6 cm)",
+      "type": "boolean"
+    },
+    {
+      "id": "c3",
+      "category": "Midfoot",
+      "text": "Bone tenderness at the base of the fifth metatarsal",
+      "type": "boolean"
+    },
+    {
+      "id": "c4",
+      "category": "Midfoot",
+      "text": "Bone tenderness at the navicular",
+      "type": "boolean"
+    },
+    {
+      "id": "c5",
+      "category": "General",
+      "text": "Inability to bear weight both immediately and in the ED (4 steps)",
+      "type": "boolean"
+    }
+  ],
+  "logic": {
+    "ankle_xray_indicated": "c1 OR c2 OR c5",
+    "foot_xray_indicated": "c3 OR c4 OR c5"
+  },
+  "recommendations": {
+    "positive_ankle": "HIGH RISK: Indicated for Ankle X-ray series.",
+    "positive_foot": "HIGH RISK: Indicated for Foot X-ray series.",
+    "negative": "LOW RISK: X-ray is NOT strictly indicated. Treat as sprain/strain. Provide discharge instructions."
+  }
+}
